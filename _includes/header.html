@@ -9,14 +9,14 @@
       <!-- published date -->
       <span>
         {{ site.data.locales[lang].post.posted }}
-        {% include datetime.html date=page.date tooltip=true lang=lang %}
+        {% include mydatetime.html date=page.date tooltip=true lang=lang %}
       </span>
 
       <!-- lastmod date -->
       {% if page.last_modified_at and page.last_modified_at != page.date %}
         <span>
           {{ site.data.locales[lang].post.updated }}
-          {% include datetime.html date=page.last_modified_at tooltip=true lang=lang %}
+          {% include mydatetime.html date=page.last_modified_at tooltip=true lang=lang %}
         </span>
       {% endif %}
 
