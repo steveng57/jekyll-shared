@@ -21,6 +21,33 @@ img {
     text-align: center;
 }
 
+/* Search-like form utilities (match Chirpy search box look) */
+.sjg-search-like {
+    border: 1px solid var(--search-border-color);
+    border-radius: 1rem;
+    background: var(--main-bg);
+}
+
+.sjg-search-like-group {
+    border: 1px solid var(--search-border-color);
+    border-radius: 1rem;
+    background: var(--main-bg);
+    padding: 0 .5rem;
+}
+
+.sjg-search-like .form-control {
+    color: var(--text-color);
+}
+
+.sjg-search-like .form-control::placeholder {
+    color: var(--text-muted);
+    opacity: 0.8;
+}
+
+.sjg-search-like .input-group-text i {
+    color: var(--search-icon-color);
+}
+
 .flex-item img {
     width: 100%; /* Adjust as needed */
 }
