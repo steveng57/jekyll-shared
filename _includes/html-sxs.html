@@ -21,13 +21,13 @@
 {% if include.figure1_classes %}
   {% assign figure1_classes = include.figure1_classes %}
 {% else %}
-  {% assign figure1_classes = base_figure_classes %}
+  {% assign figure1_classes = base_figure_classes | append: " me-md-1" %}
 {% endif %}
 
 {% if include.figure2_classes %}
   {% assign figure2_classes = include.figure2_classes %}
 {% else %}
-  {% assign figure2_classes = base_figure_classes %}
+  {% assign figure2_classes = base_figure_classes | append: " ms-md-1" %}
 {% endif %}
 
 {% assign image_base_classes = "figure-img img-fluid rounded" %}
