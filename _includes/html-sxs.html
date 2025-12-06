@@ -1,3 +1,15 @@
+{%- comment -%}
+  Side-by-side image helper. Parameters:
+    - img1 / img2: image paths relative to the post `media_subpath` (required)
+    - caption1 / caption2: optional captions; default to `_data/img-info.json`
+    - alt1 / alt2: override alt text for each image
+    - title1 / title2: override title attribute
+    - wrapper_classes: additional classes for the outer flex container
+    - figure_classes: base classes applied to both `<figure>` elements
+    - figure1_classes / figure2_classes: per-figure overrides
+    - img1_classes / img2_classes: extra classes on each `<img>`
+    - caption_classes: extra classes on both captions
+{%- endcomment -%}
 
 {% assign caption1 = include.caption1 | default: site.data.img-info[include.img1].title %}
 {% assign caption2 = include.caption2 | default: site.data.img-info[include.img2].title %}
