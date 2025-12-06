@@ -1,31 +1,68 @@
 
 {% assign caption = include.caption | default: site.data.img-info[include.img].title %}
+{% assign align = include.align | default: "center-full" %}
 
-{% case include.align %}
+{% assign figure_classes = "figure d-block mb-3" %}
+{% assign figure_styles = "" %}
+{% assign img_classes = "figure-img img-fluid rounded" %}
+{% assign caption_classes = "figure-caption text-center" %}
+
+{% case align %}
   {% when "left" %}
-    {% assign class = "sjg-left" %}
+    {% assign figure_classes = figure_classes | append: " float-start me-3" %}
+    {% capture figure_styles %}{{ figure_styles }}width: 66%; {% endcapture %}
   {% when "left-33" %}
-    {% assign class = "sjg-left-33" %}
+    {% assign figure_classes = figure_classes | append: " float-start me-3" %}
+    {% capture figure_styles %}{{ figure_styles }}width: 33%; {% endcapture %}
   {% when "left-50" %}
-    {% assign class = "sjg-left-50" %}
+    {% assign figure_classes = figure_classes | append: " float-start me-3" %}
+    {% capture figure_styles %}{{ figure_styles }}width: 50%; {% endcapture %}
   {% when "right" %}
-    {% assign class = "sjg-right" %}
+    {% assign figure_classes = figure_classes | append: " float-end ms-3" %}
+    {% capture figure_styles %}{{ figure_styles }}width: 66%; {% endcapture %}
   {% when "right-33" %}
-    {% assign class = "sjg-right-33" %}
+    {% assign figure_classes = figure_classes | append: " float-end ms-3" %}
+    {% capture figure_styles %}{{ figure_styles }}width: 33%; {% endcapture %}
   {% when "right-50" %}
-    {% assign class = "sjg-right-50" %}
+    {% assign figure_classes = figure_classes | append: " float-end ms-3" %}
+    {% capture figure_styles %}{{ figure_styles }}width: 50%; {% endcapture %}
   {% when "center" %}
-    {% assign class = "sjg-center" %}
+    {% assign figure_classes = figure_classes | append: " mx-auto w-75" %}
   {% when "center-wide" %}
-    {% assign class = "sjg-center-wide" %}
+    {% assign figure_classes = figure_classes | append: " mx-auto" %}
+    {% capture figure_styles %}{{ figure_styles }}width: 90%; {% endcapture %}
   {% when "center-full" %}
-    {% assign class = "sjg-center-full" %}
+    {% assign figure_classes = figure_classes | append: " mx-auto w-100" %}
+  {% when "none" %}
+    {% assign figure_classes = figure_classes | append: "" %}
   {% else %}
-    {% assign class = "sjg-center-full" %}
+    {% assign figure_classes = figure_classes | append: " mx-auto w-100" %}
 {% endcase %}
 
-<div style="height: 0.001rem;" ></div>
-<div class="{{ class }}">
-    <img src="{{ include.img }}" alt="{{ include.img }}" title="{{ caption }}">
-    <figcaption>{{ caption }}</figcaption>
-</div>
+{% if include.extra_classes %}
+  {% assign figure_classes = figure_classes | append: " " | append: include.extra_classes %}
+{% endif %}
+{% if include.figure_classes %}
+  {% assign figure_classes = figure_classes | append: " " | append: include.figure_classes %}
+{% endif %}
+
+{% if include.img_classes %}
+  {% assign img_classes = img_classes | append: " " | append: include.img_classes %}
+{% endif %}
+{% if include.caption_classes %}
+  {% assign caption_classes = caption_classes | append: " " | append: include.caption_classes %}
+{% endif %}
+
+{% if include.style %}
+  {% capture figure_styles %}{{ figure_styles }} {{ include.style }}{% endcapture %}
+{% endif %}
+{% assign figure_styles = figure_styles | strip %}
+
+{% assign alt_text = include.alt | default: include.img %}
+{% assign title_text = include.title | default: caption %}
+
+<div style="height: 0.001rem;"></div>
+<figure class="{{ figure_classes | strip }}"{% if figure_styles != "" %} style="{{ figure_styles | strip }}"{% endif %}>
+  <img src="{{ include.img }}" alt="{{ alt_text }}" title="{{ title_text }}" class="{{ img_classes | strip }}">
+  <figcaption class="{{ caption_classes | strip }}">{{ caption }}</figcaption>
+</figure>
