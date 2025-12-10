@@ -49,8 +49,27 @@
       {% assign woodworking_subcats = woodworking_subcats | sort %}
       {% assign homeandgarden_subcats = homeandgarden_subcats | sort %}
 
+      {%- comment -%}
+        Determine the current page's top-level and second-level categories.
+        Works for both posts (page.category / page.categories) and the
+        auto-generated category index pages (page.category_path).
+      {%- endcomment -%}
+      {% assign page_cats = page.category | default: page.categories %}
+      {% if page_cats == nil and page.category_path %}
+        {% assign page_cats = page.category_path %}
+      {% endif %}
+
+      {% assign page_topcat = nil %}
+      {% assign page_subcat = nil %}
+      {% if page_cats and page_cats.size > 0 %}
+        {% assign page_topcat = page_cats[0] %}
+        {% if page_cats.size > 1 %}
+          {% assign page_subcat = page_cats[1] %}
+        {% endif %}
+      {% endif %}
+
       <!-- top-level category shortcuts -->
-      <li class="nav-item{% if page.url == '/woodworking/' %}{{ " active" }}{% endif %}">
+      <li class="nav-item{% if page.url == '/woodworking/' or page_topcat == 'Woodworking' %}{{ " active" }}{% endif %}">
         <a href="{{ '/woodworking/' | relative_url }}" class="nav-link">
           <i class="fa-fw fas fa-hammer"></i>
           <span>WOODWORKING</span>
@@ -61,16 +80,16 @@
           {% assign subslug = subcat | slugify %}
           {% assign suburl = '/woodworking/' | append: subslug | append: '/' %}
           {% assign subicon = site.data.category_icons[subcat] | default: 'fas fa-folder' %}
-          <li class="nav-item{% if page.url == suburl %} active{% endif %}">
+          <li class="nav-item{% if page.url == suburl or page_topcat == 'Woodworking' and page_subcat == subcat %} active{% endif %}">
             <a href="{{ suburl | relative_url }}" class="nav-link">
-              <i class="fa-fw {{ subicon }}"></i>
+              <i class="fa-fw {{ subicon }} sjg-subcat-icon"></i>
               <span class="ms-4">{{ subcat | upcase }}</span>
             </a>
           </li>
         {% endfor %}
       {% endif %}
 
-      <li class="nav-item{% if page.url == '/home-and-garden/' %}{{ " active" }}{% endif %}">
+      <li class="nav-item{% if page.url == '/home-garden/' or page_topcat == 'Home & Garden' %}{{ " active" }}{% endif %}">
         <a href="{{ '/home-garden/' | relative_url }}" class="nav-link">
           <i class="fa-fw fas fa-leaf"></i>
           <span>HOME &amp; GARDEN</span>
@@ -81,9 +100,9 @@
           {% assign subslug = subcat | slugify %}
           {% assign suburl = '/home-garden/' | append: subslug | append: '/' %}
           {% assign subicon = site.data.category_icons[subcat] | default: 'fas fa-folder' %}
-          <li class="nav-item{% if page.url == suburl %} active{% endif %}">
+          <li class="nav-item{% if page.url == suburl or page_topcat == 'Home & Garden' and page_subcat == subcat %} active{% endif %}">
             <a href="{{ suburl | relative_url }}" class="nav-link">
-              <i class="fa-fw {{ subicon }}"></i>
+              <i class="fa-fw {{ subicon }} sjg-subcat-icon"></i>
               <span class="ms-4">{{ subcat | upcase }}</span>
             </a>
           </li>
