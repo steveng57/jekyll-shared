@@ -19,7 +19,7 @@
   <nav class="flex-column flex-grow-1 w-100 ps-0">
     <ul class="nav">
       <!-- home -->
-      <li class="nav-item{% if page.url == '/' %}{{ " active" }}{% endif %}">
+      <li class="nav-item sjg-sidebar-top{% if page.url == '/' %}{{ " active" }}{% endif %}">
         <a href="{{ '/' | relative_url }}" class="nav-link">
           <i class="fa-fw fas fa-home"></i>
           <span>{{ site.data.locales[include.lang].tabs.home | upcase }}</span>
@@ -69,7 +69,7 @@
       {% endif %}
 
       <!-- top-level category shortcuts -->
-      <li class="nav-item{% if page.url == '/woodworking/' or page_topcat == 'Woodworking' %}{{ " active" }}{% endif %}">
+      <li class="nav-item sjg-sidebar-top{% if page.url == '/woodworking/' or page_topcat == 'Woodworking' %}{{ " active" }}{% endif %}">
         <a href="{{ '/woodworking/' | relative_url }}" class="nav-link">
           <i class="fa-fw fas fa-hammer"></i>
           <span>WOODWORKING</span>
@@ -83,13 +83,13 @@
           <li class="nav-item{% if page.url == suburl or page_topcat == 'Woodworking' and page_subcat == subcat %} active{% endif %}">
             <a href="{{ suburl | relative_url }}" class="nav-link">
               <i class="fa-fw {{ subicon }} sjg-subcat-icon"></i>
-              <span class="ms-4">{{ subcat | upcase }}</span>
+                <span class="ms-4">{{ subcat | upcase }}</span>
             </a>
           </li>
         {% endfor %}
       {% endif %}
 
-      <li class="nav-item{% if page.url == '/home-garden/' or page_topcat == 'Home & Garden' %}{{ " active" }}{% endif %}">
+      <li class="nav-item sjg-sidebar-top{% if page.url == '/home-garden/' or page_topcat == 'Home & Garden' %}{{ " active" }}{% endif %}">
         <a href="{{ '/home-garden/' | relative_url }}" class="nav-link">
           <i class="fa-fw fas fa-leaf"></i>
           <span>HOME &amp; GARDEN</span>
@@ -115,7 +115,7 @@
         {% else %}
           {% assign tab_url = tab.url %}
         {% endif %}
-        <li class="nav-item{% if tab_url == page.url %}{{ " active" }}{% endif %}">
+        <li class="nav-item sjg-sidebar-top{% if tab_url == page.url %}{{ " active" }}{% endif %}">
           <a href="{{ tab_url | relative_url }}" class="nav-link">
             <i class="fa-fw {{ tab.icon }}"></i>
             {% capture tab_name %}{{ tab_url | split: '/' }}{% endcapture %}
